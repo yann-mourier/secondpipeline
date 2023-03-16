@@ -19,5 +19,13 @@ pipeline {
       }
     }
 
+    stage('deploiement') {
+      steps {
+        echo 'etape de deploiement'
+      }
+      when {
+        changelog '.* deploy .*'
+      }
+    }
   }
 }
