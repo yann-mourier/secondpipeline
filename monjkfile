@@ -3,26 +3,18 @@ pipeline {
   
   stages {
  
-    stage('build') {
+    stage('tmp') {
       steps {
         echo "etape de test"
-        sh 'tree /tmp'
       }
     }
-    stage('build avec variable dynamique') {
+    
+    stage('build') {
       environment {
-        CC = """${sh(
-                returnStdout: true,
-                script: 'echo "clang"'
-            )}""" 
-        // Using returnStatus
-        EXIT_STATUS = """${sh(
-                returnStatus: true,
-                script: 'exit 1'
-            )}"""
-        }
+       AWS_SECRET = credentials('monmotdepassesecret')
+       }
       steps {
-        echo "etape de build avec variable dynamique"
+        echo "etape de build"
         sh 'printenv'
       }
     }
