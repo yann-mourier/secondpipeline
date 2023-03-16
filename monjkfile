@@ -1,21 +1,13 @@
 pipeline {
-  agent any
+  agent {
+    docker { image 'node:16.13.1-alpine' }
+  }
   
   stages {
- 
     stage('tmp') {
       steps {
         echo "etape de test"
-      }
-    }
-    
-    stage('build') {
-      environment {
-       AWS_SECRET = credentials('monmotdepassesecret')
-       }
-      steps {
-        echo "etape de build"
-        sh 'printenv'
+        sh 'node --version'
       }
     }
   }
