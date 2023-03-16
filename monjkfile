@@ -2,41 +2,28 @@ pipeline {
   agent any
   
   stages {
-    stage('construction') {
-      stage('construction1') {
-       steps {
-          echo "etape de construction : initialisation"
-          sh 'make main'
-          sh 'ls'
-          archiveArtifacts artifacts: 'main', fingerprint: true
-        }
-      }
-     stage(construction2) {
-        when {
-         changelog '.* production .*'
-         }
-       steps {
-          echo "etape de construction : finalisation"
-          sh 'strip main'
-        }
-      }
-   }
-  
-  stage('test') {
+ 
+    stage('test') {
       steps {
         echo "etape de test"
-        sh 'ls'
-       /* junit '*.xml' */
+        sleep 10
       }
     }
 
     stage('deploiement') {
-      steps {
-        echo 'etape de deploiement'
-      }
-      when {
-        changelog '.* deploy .*'
-      }
+    parallel { 
+         stage('tache parallele une') {
+           steps {
+             echo "message parrallele un"
+             sleep 10
+           }
+         }
+         stage('tache parrallele deux') {
+           steps {
+              echo "message parralele deux"
+           }
+         }
+     }
     }
-  }
+    }
 }
