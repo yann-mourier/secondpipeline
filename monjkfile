@@ -5,21 +5,30 @@ pipeline {
       
       stage('local node') {
         agent {
-            docker { image 'node:16.13.1-alpine' }
+            docker {
+                image 'node:16.13.1-alpine'
+                args '-v /root/.m2:/tmp/m2'
+            }
         }
         steps {
             sh 'node --version'
+            sh 'mkdir /tmp/m2'
+            sh 'echo bonjour > /tmp/m2/fichier'
         }
       }
     
       stage('Test') {
           agent {
-            docker { image 'maven:3.9.0-eclipse-temurin-11' }
+            docker {
+              image 'maven:3.9.0-eclipse-temurin-11'
+              args '-v /root/.m2:/tmp/m2/'
+            }
           }
             steps {
                 sh 'mvn --version'
-        
+                sh 'mkdir /tmp/m2'
+                sh 'cat /tmp/m2/fichier'
             }
         }
     }
-}
+} 
