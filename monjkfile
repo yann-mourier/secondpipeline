@@ -1,20 +1,13 @@
 pipeline {
   agent any
+  
   stages {
     stage('construction') {
       steps {
         echo "etape de construction"
+        sh 'make'
       }
-    }
-    stage('verification') {
-      steps {
-        echo "etape de verification"
-      }
-    }
-    stage('deploiement') {
-      steps {
-        echo "etape de deploiement"
-      }
-    }
+    }   
+
   }
 }
