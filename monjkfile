@@ -9,13 +9,21 @@ pipeline {
         sh 'tree /tmp'
       }
     }
-    stage('build en LANG=C') {
+    stage('build avec variable dynamique') {
       environment {
-        LANG = 'C'
-      }
+        CC = """${sh(
+                returnStdout: true,
+                script: 'echo "clang"'
+            )}""" 
+        // Using returnStatus
+        EXIT_STATUS = """${sh(
+                returnStatus: true,
+                script: 'exit 1'
+            )}"""
+        }
       steps {
-        echo "etape de test avec environnement"
-        sh 'tree /tmp'
+        echo "etape de build avec variable dynamique"
+        sh 'printenv'
       }
     }
   }
