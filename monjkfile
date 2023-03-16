@@ -3,27 +3,20 @@ pipeline {
   
   stages {
  
-    stage('test') {
+    stage('build') {
       steps {
         echo "etape de test"
-        sleep 10
+        sh 'tree /tmp'
       }
     }
-
-    stage('deploiement') {
-    parallel { 
-         stage('tache parallele une') {
-           steps {
-             echo "message parrallele un"
-             sleep 10
-           }
-         }
-         stage('tache parrallele deux') {
-           steps {
-              echo "message parralele deux"
-           }
-         }
-     }
+    stage('build en LANG=C') {
+      environment {
+        LANG = 'C'
+      }
+      steps {
+        echo "etape de test avec environnement"
+        sh 'tree /tmp'
+      }
     }
-    }
+  }
 }
