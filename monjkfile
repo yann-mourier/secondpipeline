@@ -12,7 +12,6 @@ pipeline {
         }
         steps {
             sh 'node --version'
-            sh 'mkdir /tmp/m2'
             sh 'echo bonjour > /tmp/m2/fichier'
         }
       }
@@ -26,9 +25,8 @@ pipeline {
           }
             steps {
                 sh 'mvn --version'
-                sh 'mkdir /tmp/m2'
                 sh 'cat /tmp/m2/fichier'
             }
         }
     }
-} 
+}
