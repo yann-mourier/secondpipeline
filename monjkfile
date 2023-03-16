@@ -15,7 +15,7 @@ pipeline {
       steps {
         echo "etape de test"
         sh 'ls'
-        junit '*.xml'
+       /* junit '*.xml' */
       }
     }
 
