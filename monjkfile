@@ -1,11 +1,11 @@
 pipeline {
-  agent { dockerfile true }
+  agent { label 'noeud' }
 
   stages {
-      stage('front end') {
+      stage('agent production') {
          steps {
-            sh 'node --version'
-            sh 'svn --version'
+            echo 'note depuis le depot'
+            sh 'sleep 10'
          }
         }
      }
